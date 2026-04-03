@@ -104,13 +104,6 @@ const logoutBtn = document.getElementById("logoutBtn");
 
 if (logoutBtn) {
     logoutBtn.addEventListener("click", () => {
-
-        // ❌ supprimer session
-        localStorage.removeItem("userProfile");
-
-        // (optionnel) supprimer toutes les données
-        // localStorage.clear();
-
         // 🔁 retour login
         window.location.href = "index.html";
     });
