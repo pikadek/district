@@ -10,7 +10,8 @@ async function hashPassword(password) {
 // ================== USERS ==================
 const usersDB = [
     { username: "test", passwordHash: "6c1ccd1f20742182387027bb4b72c4bfe4ca7e9247af5e7c0f1f8ce0f236724e", role: "user" },
-    { username: "District", passwordHash: "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08", role: "admin" }
+    { username: "District", passwordHash: "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08", role: "admin" },
+    { username: "tt", passwordHash: "494414ded24da13c451b13b424928821351c78fce49f93d9e1b55f102790c206", role: "user" }
 ];
 
 // ================== LOGIN (SAFE) ==================
