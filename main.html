@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Flash FA</title>
+
+    <link rel="icon" type="image/png" href="district.png">
+    <link rel="stylesheet" href="CSS/style.css">
+
+    <!-- ✅ IMPORTANT -->
+    <script src="JS/script.js" defer></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<h1 id="welcome"></h1>
+
+<div id="userData"></div>
+<br><br>
+<div id="adminPanel"></div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const profile = JSON.parse(localStorage.getItem("userProfile"));
+
+    if (!profile) {
+        window.location.href = "index.html";
+        return;
+    }
+
+    const username = profile.username;
+    const role = profile.role;
+
+    document.getElementById("welcome").textContent = `Bonjour ${username} 👋`;
+
+    if (typeof loadUserData !== "function") {
+        console.error("script.js non chargé !");
+        return;
+    }
+
+    let data = loadUserData(username);
+
+    if (!data) {
+        data = {
+            cards: [],
+            nextCard: "Aucune",
+            nextTime: new Date().toISOString()
+        };
+        saveUserData(username, data);
+    }
+
+    // 🎴 AFFICHAGE USER
+    document.getElementById("userData").innerHTML = `
+        <h2>🎴 Tes cartes</h2>
+        <p>${data.cards.length ? data.cards.join(" ") : "Aucune"}</p>
+
+        <h2>⏭️ Prochaine carte</h2>
+        <p>${data.nextCard}</p>
+    `;
+
+    // 👑 ADMIN PANEL
+    if (role === "admin") {
+
+        const allData = JSON.parse(localStorage.getItem("usersData")) || {};
+        const adminPanel = document.getElementById("adminPanel");
+
+        let options = "";
+
+// 🔥 récupérer tous les users du système
+const allUsers = [
+    ...Object.keys(allData),
+    ...usersDB.map(u => u.username)
+];
+
+// supprimer doublons
+const uniqueUsers = [...new Set(allUsers)];
+
+uniqueUsers.forEach(user => {
+    options += `<option value="${user}">${user}</option>`;
+});
+
+        adminPanel.innerHTML = `
+            <h2>👑 PANEL ADMIN</h2>
+
+            <label>Utilisateur :</label>
+            <select id="groupeselect">${options}</select>
+
+            <h3>🎴 Ajouter une carte</h3>
+            <input type="text" id="newCardInput" placeholder="ex: ♠️A">
+            <button onclick="addCardToUser()">Ajouter</button>
+
+            <h3>⏭️ Modifier prochaine carte</h3>
+            <input type="text" id="nextCardInput" placeholder="ex: ♣️K">
+            <button onclick="setNextCard()">Modifier</button>
+        `;
+    }
+
+});
+</script>
+
+</body>
+</html>
