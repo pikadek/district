@@ -47,7 +47,7 @@ if (btn) {
         );
 
         if (user) {
-            message.textContent = `Connection avec succes ${user.username} ! 🎉`;
+            message.textContent = ``;
             message.classList.add("success");
 
             localStorage.setItem("userProfile", JSON.stringify({
