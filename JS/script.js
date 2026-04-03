@@ -1,3 +1,4 @@
+//JS
 // Fonction asynchrone pour hacher un texte en SHA-256
 async function hashPassword(password) {
     const encoder = new TextEncoder();
