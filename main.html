@@ -100,8 +100,37 @@ uniqueUsers.forEach(user => {
     }
 
 });
+const logoutBtn = document.getElementById("logoutBtn");
+
+if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+
+        // ❌ supprimer session
+        localStorage.removeItem("userProfile");
+
+        // (optionnel) supprimer toutes les données
+        // localStorage.clear();
+
+        // 🔁 retour login
+        window.location.href = "index.html";
+    });
+}
+    
 </script>
 
-   
+   <button id="logoutBtn" style="
+    position:absolute;
+    top:800px;
+    right:900px;
+    padding:10px;
+    border:none;
+    border-radius:8px;
+    background:rgb(0, 0, 0);
+    color:white;
+    cursor:pointer;
+">
+Déconnexion
+</button>
+    
 </body>
 </html>
